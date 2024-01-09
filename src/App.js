@@ -18,27 +18,35 @@ export default function App() {
 
   useEffect(() => {
     getCountriesData();
-  }, [country]);
+  }, []);
+useEffect(()=>{
+  const filteredCountries = countriesData.filter((item) =>
+  item.name.common.toLowerCase().includes(country.toLowerCase())
+);
+setCountriesData(filteredCountries);
+}, [country]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    const filteredCountries = countriesData.filter((item) =>
-      item.name.common.toLowerCase().includes(country.toLowerCase())
-    );
-    setCountriesData(filteredCountries);
-  };
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   const { name, value } = e.target;
+  //   const filteredCountries = countriesData.filter((item) =>
+  //     item.name.common.toLowerCase().includes(country.toLowerCase())
+  //   );
+  //   setCountriesData(filteredCountries);
+  // };
+
   return (
     <div className="App">
-      <form onSubmit={handleSearch}>
+      {/* <form onSubmit={handleSearch}> */}
         <input
           type="text"
           placeholder="Search for countries"
           value={country}
-          onChange={(e) => setCountry(e.target.value)}
+          onChange={(e)=>setCountry(e.target.value)}
           name="country"
+          
         />
-      </form>
+      {/* </form> */}
       <div className="main-container">
         {countriesData.map((item) => {
           return (
